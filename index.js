@@ -93,19 +93,12 @@ function pixelDraw() {
       e.target.style.backgroundColor = `${brushChoice}`;
       e.target.style.borderColor = `${brushChoice}`;
     
-      //set to data obj 
-      dataObj[e.target.id] = `${e.target.style.backgroundColor}`
-    
-      // set to local storage
-      window.localStorage.setItem('artwork', JSON.stringify(dataObj))
+      //set to data obj and append to local storage
+      dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
+      window.localStorage.setItem('artwork', JSON.stringify(dataObj));
     }
   });
 }
-
-
-
-
-
 
 // maybe delete
 let artwork = JSON.parse(localStorage.getItem('artwork'));
@@ -119,6 +112,10 @@ function pixelPaint() {
     if (isMouseDown) {
       e.target.style.backgroundColor = `${brushChoice}`;
       e.target.style.borderColor = `${brushChoice}`;
+
+      //set to data obj and append to local storage
+      dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
+      window.localStorage.setItem("artwork", JSON.stringify(dataObj));
     }
   });
 }
@@ -132,7 +129,6 @@ function getPaletteColor() {
     }
     //set color display bar
     currentColorDisplay.style.backgroundColor = `${brushChoice}`;
-    // body.style.backgroundColor = `${brushChoice}`
   });
 }
 
