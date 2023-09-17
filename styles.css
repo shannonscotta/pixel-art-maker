@@ -6,7 +6,7 @@
 
 html,
 body {
-  height: 100%;
+  height: 100vh;
 }
 
 body {
@@ -18,13 +18,13 @@ body {
 }
 
 .container {
-  width: 1180px;
-  height: 740px;
-  border: 1px solid grey;
-  border-radius: 25px;
-  box-shadow: 2px 2px 1px rgb(155, 152, 152);
+  width: 73.75rem;
+  height: 46.25rem;
+  border: .063rem solid grey;
+  border-radius: 1.563rem;
+  box-shadow: .125rem .125rem .063rem rgb(155, 152, 152);
   background-color: var(--gray);
-  padding: 2em
+  padding: 2rem;
 }
 
 .canvas {
@@ -32,15 +32,15 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   cursor: pointer;
-  width: 1180px;
-  border: .1px solid var(--gray);
+  width: 73.75rem;
+  border: .006rem solid var(--gray);
   margin: 0 auto;
 }
 
 .pixel {
-  width: 17px;
-  height: 17px;
-  border: 1px solid var(--gray);
+  width: 1.063rem;
+  height: 1.063rem;
+  border: .063rem solid var(--gray);
   margin: 0;
   padding: 0;
   background-color: white;
@@ -53,12 +53,12 @@ body {
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
-  border: .1px solid var(--gray);
+  border: .006rem solid var(--gray);
   background-color: 1px solid var(--gray);
-  margin-top: 10px;
+  margin-top: 0.625rem;
   background-color: var(--gray);
   width: 100%;
-  height: 115px;
+  height: 7.188rem;
 }
 
 .color-palette-container:hover {
@@ -66,11 +66,11 @@ body {
 }
 
 .color-option {
-  width: 45px;
-  height: 45px;
+  width: 2.812rem;
+  height: 2.812rem;
   background-color: white;
   border-radius: 50%;
-  margin: 5.6px;
+  margin: 0.35rem
 }
 
 .color-option:hover {
@@ -80,7 +80,7 @@ body {
 .current-color-display-container {
   display: flex;
   text-align: center;
-  margin-top: 9px;
+  margin-top: 0.563rem;
   width: 47%;
   height: 45%;
 }
@@ -88,18 +88,18 @@ body {
 .current-color-display {
   width: 23%;
   height: 80%;
-  margin-top: 3px;
-  line-height: 50px;
+  margin-top: .188rem;
+  line-height: 3.125rem;
   background-color: white;
-  box-shadow: 2px 2px 3px rgb(152, 155, 155);
+  box-shadow: .125rem .125rem .188rem rgb(152, 155, 155);
 }
 
 .current-color-text {
   text-align: center;
-  line-height: 50px;
+  line-height: 3.125rem;
   font-size: xx-large;
   font-weight: 450;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana, Tahoma, sans-serif;
   color: var(--currentColorText);
   width: 70%;
   height: 100%;
