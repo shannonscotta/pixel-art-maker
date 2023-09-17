@@ -61,7 +61,7 @@ body {
   height: 7.188rem;
 }
 
-.color-palette-container:hover {
+.color-option:hover {
   cursor: pointer;
 }
 
@@ -105,14 +105,15 @@ body {
   height: 100%;
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 3),
-only screen and (min--moz-device-pixel-ratio: 3),
-only screen and (-o-min-device-pixel-ratio: 3/1),
-only screen and (min-device-pixel-ratio: 3) {
-
-  html,
-  body {
-    height: 220vh;
-    width: 220vw;
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 200vh;
+    height: 200vw;
+    position: absolute;
+    top: 200%;
+    left: 0;
   }
+
 }

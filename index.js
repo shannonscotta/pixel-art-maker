@@ -110,7 +110,7 @@ function getPaletteColor() {
     }
     //set color display bar
     currentColorDisplay.style.backgroundColor = `${brushChoice}`;
-    body.style.backgroundColor = `${brushChoice}`
+    // body.style.backgroundColor = `${brushChoice}`
   });
 }
 
