@@ -8,10 +8,9 @@ let pixel;
 for (let i = 0; i < NUMBER_OF_PIXELS; i++) {
   pixel = document.createElement("p");
   pixel.classList.add("pixel");
-
+  pixel.id = `pixel-${i}`;
   pixelDraw();
   pixelPaint();
-
   canvas.appendChild(pixel);
 }
 
@@ -83,13 +82,36 @@ let isMouseUp = true;
 monitorClicks();
 getPaletteColor();
 
+
+let dataObj = {};
+
 function pixelDraw() {
   pixel.addEventListener("click", (e) => {
+   
     if (e.target.tagName.toLowerCase() === "p") {
+      // window.localStorage.setItem('modifiedPixels', JSON.stringify())
       e.target.style.backgroundColor = `${brushChoice}`;
       e.target.style.borderColor = `${brushChoice}`;
+    
+      //set to data obj 
+      dataObj[e.target.id] = `${e.target.style.backgroundColor}`
+    
+      // set to local storage
+      window.localStorage.setItem('artwork', JSON.stringify(dataObj))
     }
   });
+}
+
+
+
+
+
+
+// maybe delete
+let artwork = JSON.parse(localStorage.getItem('artwork'));
+
+if (artwork){
+  console.log(artwork)
 }
 
 function pixelPaint() {
@@ -114,17 +136,31 @@ function getPaletteColor() {
   });
 }
 
+
+
+
+
 function monitorClicks() {
   body.addEventListener("mousedown", function (event) {
     isMouseUp = false;
     isMouseDown = true;
+
+
   });
+
 
   body.addEventListener("mouseup", function () {
     isMouseUp = true;
     isMouseDown = false;
   });
 }
+
+
+
+
+
+
+
 
 //TODO:// bug work around below, needs a real fix though
 
@@ -135,3 +171,22 @@ paletteContainer.removeChild(allColors[0]);
 currentColorDisplayContainer.appendChild(currentColorText);
 //potential bug, appending the display last... consider cleaning up
 currentColorDisplayContainer.appendChild(currentColorDisplay);
+
+
+if (typeof(Storage) !== "undefined"){
+  console.log('This browser has local storage!:', window.localStorage)
+} else {
+  console.log('This browser has no local storage');
+}
+
+
+
+
+
+/*
+
+    
+  // retrieve from local storage
+    // let users = JSON.parse(localStorage.getItem('users'));
+    // console.log('users*******', users);
+    */
