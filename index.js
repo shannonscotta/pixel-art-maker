@@ -101,6 +101,7 @@ function pixelPaint() {
   });
 }
 
+
 function getPaletteColor() {
   paletteContainer.addEventListener("click", function (event) {
     //only color options can be selected.
@@ -109,6 +110,7 @@ function getPaletteColor() {
     }
     //set color display bar
     currentColorDisplay.style.backgroundColor = `${brushChoice}`;
+    body.style.backgroundColor = `${brushChoice}`
   });
 }
 
