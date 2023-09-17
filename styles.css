@@ -109,8 +109,8 @@ body {
   html {
     transform: rotate(-90deg);
     transform-origin: left top;
-    width: 200vh;
-    height: 200vw;
+    width: 100vh;
+    height: 100vw;
     position: absolute;
     top: 200%;
     left: 0;
