@@ -152,9 +152,32 @@ function monitorClicks() {
 }
 
 
+let menuOptions = ['Pencil', 'Paint', 'Erase','Reset'];
+
+function myFunction(x) {
+  x.classList.toggle("change");
+
+  for (let i = 0; i < menuOptions.length; i++){
+    let menuOption = document.createElement('div');
+    menuOption.innerText = menuOptions[i];
+    menuOption.classList.add('menu-option')
+    x.appendChild(menuOption);
+  }
+}
+
+
+let header = document.querySelector('header');
+// let menuOptionUl = document.createElement('ul');
+// menuOptionUl.classList.add('menu-option-ul');
+// header.appendChild(menuOptionUl);
+
+// let menuOptionLi = document.createElement('li');
+// menuOptionLi.classList.add('menu-option-li')
+// menuOptionUl.appendChild(menuOptionLi);
 
 
 
+console.log('header', header)
 
 
 
@@ -179,10 +202,18 @@ if (typeof(Storage) !== "undefined"){
 
 
 
-/*
 
+//TODO: retrieve from local storage 
     
   // retrieve from local storage
     // let users = JSON.parse(localStorage.getItem('users'));
     // console.log('users*******', users);
-    */
+  
+//TODO: hamburger menu with options [reset, eraser, paint, pencil]
+
+
+
+//TODO: clear pixels .. reset
+//TODO: start with mario drawing
+
+ 
