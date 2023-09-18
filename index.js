@@ -97,6 +97,8 @@ let dataObj = {};
 function pixelDraw() {
   pixel.addEventListener("click", (e) => {
    
+
+   
     if (!eraserSelected && e.target.tagName.toLowerCase() === "p") {
       // window.localStorage.setItem('modifiedPixels', JSON.stringify())
       e.target.style.backgroundColor = `${brushChoice}`;
@@ -107,6 +109,7 @@ function pixelDraw() {
       window.localStorage.setItem('artwork', JSON.stringify(dataObj));
     }
 
+  
     if (eraserSelected && e.target.tagName.toLowerCase() === "p"){
        // window.localStorage.setItem('modifiedPixels', JSON.stringify())
        e.target.style.backgroundColor = "";
@@ -143,17 +146,15 @@ function getSelectedMenuOption() {
       } else if (e.target.id === "pencil-option") {
         return (pencilSelected = true);
       } else if (e.target.id === "eraser-option") {
+        currentColorDisplay.style.backgroundColor = `#FFFFFF`;
         return (eraserSelected = true);
       } else if (e.target.id === "reset-option") {
-
         let resetSelected = true;
 
-        if (resetSelected){
+        if (resetSelected) {
           location.reload(true);
         }
-
       }
-      
     });
   }
 }
@@ -173,6 +174,13 @@ function pixelPaint() {
       //set to data obj and append to local storage
       dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
       window.localStorage.setItem("artwork", JSON.stringify(dataObj));
+    } else if (isMouseDown && eraserSelected){
+      e.target.style.backgroundColor = "";
+      e.target.style.borderColor = "";
+
+          //set to data obj and append to local storage
+          dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
+          window.localStorage.setItem("artwork", JSON.stringify(dataObj));
     }
   });
 }
@@ -184,9 +192,12 @@ function getPaletteColor() {
     if (event.target.className === "color-option") {
       brushChoice = event.target.style.backgroundColor;
     } 
-
-    //set color display bar
-    currentColorDisplay.style.backgroundColor = `${brushChoice}`;
+    
+     //set color display bar
+     if (!eraserSelected){
+      currentColorDisplay.style.backgroundColor = `${brushChoice}`; 
+     }
+  
   });
 }
 
@@ -241,3 +252,5 @@ if (typeof(Storage) !== "undefined"){
 
 //TODO: clear pixels .. reset
 //TODO: start with mario drawing
+
+//TODO: add eraser / paint size via cursor square size?
