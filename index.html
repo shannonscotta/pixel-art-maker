@@ -9,12 +9,20 @@
 
 <body>
     <header>
-        <div class="menu-icon" onclick="myFunction(this)">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
+        <div class="menu-icon" onclick="toggleHamburger(this)">
+            <div class="burger">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="menu-options">
+                <div class="menu-item" id="pencil-option">Pencil</div>
+                <div class="menu-item" id="paint-option">Paint</div>
+                <div class="menu-item" id="eraser-option">Eraser</div>
+                <div class="menu-item" id="reset-option">Reset</div>
+            </div>
         </div>
-
+    
     </header>
 
     <script defer src="index.js"></script>

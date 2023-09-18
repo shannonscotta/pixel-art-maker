@@ -1,3 +1,4 @@
+
 :root {
   --gray: #E5E5E5;
   --currentColorText: #999999;
@@ -108,49 +109,6 @@ body {
   height: 100%;
 }
 
-/* .icons {
-  width: 45px;
-  height: 45px;
-}
-
-.icons:hover{
-  transform: scale(1.2);
-}
-
-
-.topnav {
-  background-color: var(--gray);
-  overflow: hidden;
-} */
-
-/* .topnav {
-  background-color: var(--gray);
-  overflow: hidden;
-} */
-/* @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 200vh;
-    height: 100vw;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-
-} */
-
-/*
-
-  width: 73.75rem;
-  height: 46.25rem;
-  border: .063rem solid grey;
-  border-radius: 1.563rem;
-  box-shadow: .125rem .125rem .063rem rgb(155, 152, 152);
-  background-color: var(--gray);
-  padding: 2rem;
-  */
-
 header {
   display: inline-block;
   position: fixed;
@@ -159,81 +117,72 @@ header {
   background-color: white;
   width: 2.5rem;
   height: 2.5rem;
-  
-  /* width: 100vw; */
-  /* box-shadow: .125rem .125rem .063rem rgb(155, 152, 152);  */
-  /* background-color: yellow; */
   cursor: pointer;
 }
-.menu-icon {
-  
-  /* margin-right: .5rem;
-  margin-bottom: .5rem; */
-  /* width: auto;   */
-  /* background-color: black; */
+
+.burger:hover {
+  transform: scale(1.2);
 }
 
-.menu-icon:hover{
-  
-  cursor: pointer;
-  /* color: black; */
-}
 
-.bar1, .bar2, .bar3 {
-
-  cursor: pointer;
-  /* margin-top: 1.5vh; */
+.bar1, .bar2, .bar3{
   width: 35px;
   height: 5px;
   background: var(--currentColorText);
   margin: 6px 0;
   transition: 0.2s;
-  /* background-color: ; */
-  /* box-shadow: .0125rem .0125rem .0188rem black; */
-
   border: .063rem ;
-  border-radius: 1.563rem;
-  
-  
+  border-radius: 1.563rem;  
 }
 
-.change {
-background-color: yellow;
+.open {
 top:0;
 left:0;
-width: 13vw;
 transition: 0.4s;
-height: 20vh;
+height: auto;
 opacity: 80%;
 }
 
-.change:hover{
-
-}
-
-
-
-
-
-
-
-
-
-
 /* Rotate first bar */
-.change .bar1 {
+.open .bar1 {
+  margin: 1px;
   transform: translate(0, 11px) rotate(-45deg);
 }
 
 /* Fade out the second bar */
-.change .bar2 {opacity: 0;}
+.open .bar2 {opacity: 0;}
 
 /* Rotate last bar */
-.change .bar3 {
+.open .bar3 {
+  margin: 1px;
   transform: translate(0, -11px) rotate(45deg);
 }
 
+.open .burger:hover {
+  transform: scale(1.2);
+}
 
-/* .menu-option-ul{
-  list-style-type: none;
-} */
+.menu-options{
+  display: none;
+}
+
+.open .menu-options{
+  padding-top: 2px;
+  color: var(--currentColorText);
+  font-family: Verdana, Tahoma, sans-serif;
+  font-weight: 450;
+  font-size: xx-large;
+  text-align: left;
+  line-height: 3.125rem;
+  display: contents;
+  opacity: 100;
+}
+
+.open .menu-item:hover{
+transform: scale(1.2);
+}
+
+
+.reset-style, .reset-style * {
+  all:revert;
+}

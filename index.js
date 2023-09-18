@@ -1,6 +1,14 @@
 let body = document.querySelector("body");
+let html = document.querySelector("html");
 let canvas = document.querySelector(".canvas");
 let NUMBER_OF_PIXELS = 2046;
+
+
+// add event listener to menu options
+let paintSelected = false;
+let pencilSelected = false;
+let eraserSelected = false;
+let resetSelected = false;
 
 // we will need to access the pixel outside of the for loop
 let pixel;
@@ -11,6 +19,7 @@ for (let i = 0; i < NUMBER_OF_PIXELS; i++) {
   pixel.id = `pixel-${i}`;
   pixelDraw();
   pixelPaint();
+
   canvas.appendChild(pixel);
 }
 
@@ -88,7 +97,7 @@ let dataObj = {};
 function pixelDraw() {
   pixel.addEventListener("click", (e) => {
    
-    if (e.target.tagName.toLowerCase() === "p") {
+    if (!eraserSelected && e.target.tagName.toLowerCase() === "p") {
       // window.localStorage.setItem('modifiedPixels', JSON.stringify())
       e.target.style.backgroundColor = `${brushChoice}`;
       e.target.style.borderColor = `${brushChoice}`;
@@ -97,6 +106,18 @@ function pixelDraw() {
       dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
       window.localStorage.setItem('artwork', JSON.stringify(dataObj));
     }
+
+    if (eraserSelected && e.target.tagName.toLowerCase() === "p"){
+       // window.localStorage.setItem('modifiedPixels', JSON.stringify())
+       e.target.style.backgroundColor = "";
+       e.target.style.borderColor = "";
+     
+       //TODO:// include eraser in local storage
+      //  //set to data obj and append to local storage
+      //  dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
+      //  window.localStorage.setItem('artwork', JSON.stringify(dataObj));
+    }
+
   });
 }
 
@@ -107,9 +128,45 @@ if (artwork){
   console.log(artwork)
 }
 
+
+function getSelectedMenuOption() {
+  let menuItem = document.querySelectorAll(".menu-item");
+
+  for (let i = 0; i < menuItem.length; i++) {
+    menuItem[i].addEventListener("click", (e) => {
+      paintSelected = false;
+      pencilSelected = false;
+      eraserSelected = false;
+
+      if (e.target.id === "paint-option") {
+        return (paintSelected = true);
+      } else if (e.target.id === "pencil-option") {
+        return (pencilSelected = true);
+      } else if (e.target.id === "eraser-option") {
+        return (eraserSelected = true);
+      } else if (e.target.id === "reset-option") {
+
+        let resetSelected = true;
+
+        if (resetSelected){
+          location.reload(true);
+        }
+
+      }
+      
+    });
+  }
+}
+
+//TODO:// add real css reset.. dont reload
+console.log('before if check', resetSelected);
+
+
+getSelectedMenuOption();
+
 function pixelPaint() {
   pixel.addEventListener("mouseenter", (e) => {
-    if (isMouseDown) {
+    if (isMouseDown && !eraserSelected || paintSelected && !eraserSelected) {
       e.target.style.backgroundColor = `${brushChoice}`;
       e.target.style.borderColor = `${brushChoice}`;
 
@@ -126,15 +183,12 @@ function getPaletteColor() {
     //only color options can be selected.
     if (event.target.className === "color-option") {
       brushChoice = event.target.style.backgroundColor;
-    }
+    } 
+
     //set color display bar
     currentColorDisplay.style.backgroundColor = `${brushChoice}`;
   });
 }
-
-
-
-
 
 function monitorClicks() {
   body.addEventListener("mousedown", function (event) {
@@ -152,33 +206,9 @@ function monitorClicks() {
 }
 
 
-let menuOptions = ['Pencil', 'Paint', 'Erase','Reset'];
-
-function myFunction(x) {
-  x.classList.toggle("change");
-
-  for (let i = 0; i < menuOptions.length; i++){
-    let menuOption = document.createElement('div');
-    menuOption.innerText = menuOptions[i];
-    menuOption.classList.add('menu-option')
-    x.appendChild(menuOption);
-  }
+function toggleHamburger(x) {
+  x.classList.toggle("open");
 }
-
-
-let header = document.querySelector('header');
-// let menuOptionUl = document.createElement('ul');
-// menuOptionUl.classList.add('menu-option-ul');
-// header.appendChild(menuOptionUl);
-
-// let menuOptionLi = document.createElement('li');
-// menuOptionLi.classList.add('menu-option-li')
-// menuOptionUl.appendChild(menuOptionLi);
-
-
-
-console.log('header', header)
-
 
 
 //TODO:// bug work around below, needs a real fix though
@@ -199,10 +229,6 @@ if (typeof(Storage) !== "undefined"){
 }
 
 
-
-
-
-
 //TODO: retrieve from local storage 
     
   // retrieve from local storage
@@ -215,5 +241,3 @@ if (typeof(Storage) !== "undefined"){
 
 //TODO: clear pixels .. reset
 //TODO: start with mario drawing
-
- 
