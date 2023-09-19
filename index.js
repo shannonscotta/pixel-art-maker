@@ -3,24 +3,17 @@ let html = document.querySelector("html");
 let canvas = document.querySelector(".canvas");
 let NUMBER_OF_PIXELS = 2046;
 
-
 // add event listener to menu options
 let paintSelected = false;
 let pencilSelected = false;
 let eraserSelected = false;
 let clearSelected = false;
 
-
 // store all saved artwork here
 let savedDataObj = {};
 
 // used to save artwork
 let nameOfArt;
-
-//
-let tempData;
-
-// we will need to access the pixel outside of the for loop
 let pixel;
 
 for (let i = 0; i < NUMBER_OF_PIXELS; i++) {
@@ -28,11 +21,10 @@ for (let i = 0; i < NUMBER_OF_PIXELS; i++) {
   pixel.classList.add("pixel");
   pixel.id = `pixel-${i}`;
 
-    pixelDraw();
-    pixelPaint();
-  
+  pixelDraw();
+  pixelPaint();
+
   canvas.appendChild(pixel);
-  
 }
 
 let paletteContainer = document.querySelector(".color-palette-container");
@@ -103,40 +95,32 @@ let isMouseUp = true;
 monitorClicks();
 getPaletteColor();
 
-
 let dataObj = {};
 
 function pixelDraw() {
   pixel.addEventListener("click", (e) => {
-   
-
-   
     if (!eraserSelected && e.target.tagName.toLowerCase() === "p") {
       // window.localStorage.setItem('modifiedPixels', JSON.stringify())
       e.target.style.backgroundColor = `${brushChoice}`;
       e.target.style.borderColor = `${brushChoice}`;
-    
+
       //set to data obj and append to local storage
       dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
       // window.localStorage.setItem(`artwork`, JSON.stringify(dataObj));
     }
 
-  
-    if (eraserSelected && e.target.tagName.toLowerCase() === "p"){
-       // window.localStorage.setItem('modifiedPixels', JSON.stringify())
-       e.target.style.backgroundColor = "";
-       e.target.style.borderColor = "";
-     
-       //TODO:// include eraser in local storage
+    if (eraserSelected && e.target.tagName.toLowerCase() === "p") {
+      // window.localStorage.setItem('modifiedPixels', JSON.stringify())
+      e.target.style.backgroundColor = "";
+      e.target.style.borderColor = "";
+
+      //TODO:// include eraser in local storage
       //  //set to data obj and append to local storage
-       dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
+      dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
       //  window.localStorage.setItem('artwork', JSON.stringify(dataObj));
     }
-
   });
 }
-
-
 
 function getSelectedMenuOption() {
   let menuItem = document.querySelectorAll(".menu-item");
@@ -148,76 +132,52 @@ function getSelectedMenuOption() {
       eraserSelected = false;
 
       if (e.target.id === "paint-option") {
-        return paintSelected = true;
-
+        return (paintSelected = true);
       } else if (e.target.id === "pencil-option") {
-        return pencilSelected = true;
-
+        return (pencilSelected = true);
       } else if (e.target.id === "eraser-option") {
         currentColorDisplay.style.backgroundColor = `#FFFFFF`;
-        return eraserSelected = true;
-
+        return (eraserSelected = true);
       } else if (e.target.id === "clear-option") {
-          fillCanvas("");
-          // localStorage.clear();
-      } else if (e.target.id === "save-option"){
-
+        fillCanvas("");
+        // localStorage.clear();
+      } else if (e.target.id === "save-option") {
         nameOfArt = prompt("What would you like to name your artwork?");
 
         if (nameOfArt != null) {
-
-          console.log(`The name of the saved artwork is ${nameOfArt}`);
-
-          pixelSnapShot(nameOfArt)
- 
-
-          //savedDataObj[nameOfArt] = JSON.parse(localStorage.getItem('artwork'));
-          // console.log('inside of getselectedmenu',savedDataObj[nameOfArt])
+          pixelSnapShot(nameOfArt);
           addSavedArtToList(nameOfArt);
-          
         }
-
-      } 
+      }
     });
   }
 }
-
-//TODO:// add real css reset.. dont reload
-// console.log('before if check', resetSelected);
-
 
 getSelectedMenuOption();
 
 function pixelPaint() {
   pixel.addEventListener("mouseenter", (e) => {
-    if (isMouseDown && !eraserSelected || paintSelected && !eraserSelected) {
+    if (
+      (isMouseDown && !eraserSelected) ||
+      (paintSelected && !eraserSelected)
+    ) {
       e.target.style.backgroundColor = `${brushChoice}`;
       e.target.style.borderColor = `${brushChoice}`;
 
-      //set to data obj and append to local storage
       dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
-      // window.localStorage.setItem(`artwork`, JSON.stringify(dataObj));
-
-    } else if (isMouseDown && eraserSelected){
+    } else if (isMouseDown && eraserSelected) {
       e.target.style.backgroundColor = "";
       e.target.style.borderColor = "";
-
-          //set to data obj and append to local storage
-          // dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
-          // window.localStorage.setItem("artwork", JSON.stringify(dataObj));
     }
   });
 }
 
-
 function getPaletteColor() {
   paletteContainer.addEventListener("click", function (event) {
-    //only color options can be selected.
     if (event.target.className === "color-option") {
       brushChoice = event.target.style.backgroundColor;
     }
 
-    //set color display bar
     if (!eraserSelected) {
       currentColorDisplay.style.backgroundColor = `${brushChoice}`;
     }
@@ -228,10 +188,7 @@ function monitorClicks() {
   body.addEventListener("mousedown", function (event) {
     isMouseUp = false;
     isMouseDown = true;
-
-
   });
-
 
   body.addEventListener("mouseup", function () {
     isMouseUp = true;
@@ -239,62 +196,21 @@ function monitorClicks() {
   });
 }
 
-
 function toggleHamburger(x) {
   x.classList.toggle("open");
 }
 
-
-//remove first index from creating css style in css...
 let allColors = document.getElementsByClassName("color-option");
 paletteContainer.removeChild(allColors[0]);
 
 currentColorDisplayContainer.appendChild(currentColorText);
-//potential bug, appending the display last... consider cleaning up
 currentColorDisplayContainer.appendChild(currentColorDisplay);
 
-
-if (typeof(Storage) !== "undefined"){
-  console.log('This browser has local storage!:', window.localStorage)
+if (typeof Storage !== "undefined") {
+  console.log("This browser has local storage!:", window.localStorage);
 } else {
-  console.log('This browser has no local storage');
+  console.log("This browser has no local storage");
 }
-
-
-//TODO: retrieve from local storage 
-    
-  // // retrieve from local storage
-  //   let priorData = JSON.parse(localStorage.getItem('artwork'));
-
-  //   console.log('users*******', priorData);
-  
-//TODO: hamburger menu with options [reset, eraser, paint, pencil]
-
-
-//TODO: start with mario drawing
-
-//TODO: add eraser / paint size via cursor square size?
-
-
-
-
-
-
-// let artwork = JSON.parse(localStorage.getItem('artwork'));
-
-// function pixelPersist(artwork) {
-//     for (const key in artwork) {
-//       if (artwork[key] !== ""){
-//         // console.log('key is:', key)
-//         let oldPixel = document.getElementById(key);
-//         oldPixel.style.backgroundColor = `${artwork[key]}`;
-//         oldPixel.style.borderColor = `${artwork[key]}`
-//       }
-//   }
-// }
-
-// pixelPersist(artwork);
-
 
 // create a fillCanvas function that "fills the background"
 function fillCanvas(color) {
@@ -306,99 +222,31 @@ function fillCanvas(color) {
   }
 }
 
-
-
-// function getArtworkFromSavedData(art){
-
-//   localStorage.clear();
-  
-//   console.log('inside of getArtworkFromSavedData, savedDataObj: ', savedDataObj)
-//   console.log(`inside of getArtworkFromSavedData, art is: `, art);
-//  let selectedArt = savedDataObj[art];
-// console.log('savedDataObj[art]', selectedArt)
-
-
-//   for (const key in selectedArt){
-//     console.log('key from for loop', key)
-//     let olderPixel = document.getElementById(key);
-//     olderPixel.style.backgroundColor = `${selectedArt[key]}`;
-//     olderPixel.style.borderColor = `${selectedArt[key]}`
- 
-//   }
-
-// /*
-//     for (const key in artwork) {
-//       if (artwork[key] !== ""){
-//         // console.log('key is:', key)
-//         let oldPixel = document.getElementById(key);
-//         oldPixel.style.backgroundColor = `${artwork[key]}`;
-//         oldPixel.style.borderColor = `${artwork[key]}`
-//       }
-//   }
-//   */
-
-
-
-// }
-
-
-
-function getArtworkFromLocalStorage(art){
-  
-  console.log('inside of getArtworkFromSavedData, localStorage: ', localStorage)
-  // console.log(`inside of getArtworkFromSavedData, localStorage.art `, localStorage['artwork']);
-
-
-//  let selectedArt = savedDataObj[art];
-// console.log('savedDataObj[art]', selectedArt)
-
-
-  // for (const key in selectedArt){
-  //   console.log('key from for loop', key)
-  //   let olderPixel = document.getElementById(key);
-  //   olderPixel.style.backgroundColor = `${selectedArt[key]}`;
-  //   olderPixel.style.borderColor = `${selectedArt[key]}`
- 
-  // }
-
-
-
-
+function getArtworkFromLocalStorage(art) {
+  console.log(
+    "inside of getArtworkFromSavedData, localStorage: ",
+    localStorage
+  );
 }
 
-
-// const localStorage = {artwork}
-
-// console.log(artwork)
-
-
-
-function pixelSnapShot (nameOfArt) {
-  let allPixels = document.getElementsByClassName('pixel');
-  console.log('starting snapshot**********************************************')
+function pixelSnapShot(nameOfArt) {
+  let allPixels = document.getElementsByClassName("pixel");
+  console.log(
+    "starting snapshot**********************************************"
+  );
 
   let snapshotArr = [];
 
-  for (let i = 0; i < allPixels.length; i++){
-
-    if (allPixels[i].style.backgroundColor != ''){
+  for (let i = 0; i < allPixels.length; i++) {
+    if (allPixels[i].style.backgroundColor != "") {
       // localStorage.setItem()
       let pixelID = allPixels[i].id;
       let pixelColor = allPixels[i].style.backgroundColor;
-      snapshotArr.push(pixelID, pixelColor)
+      snapshotArr.push(pixelID, pixelColor);
     }
-
-  } 
-   window.localStorage.setItem(`${nameOfArt}`, JSON.stringify(snapshotArr))
-
-  
-  // console.log( snapshotArr);
+  }
+  window.localStorage.setItem(`${nameOfArt}`, JSON.stringify(snapshotArr));
 }
-
-
-
-
-
 
 function addSavedArtToList(nameOfArt) {
   let savedList = document.getElementsByTagName("ul")[0];
@@ -417,7 +265,6 @@ function startPaintingSelectedArtwork(nameOfArt) {
   fillCanvas("");
   let allPixels = document.querySelectorAll(".pixel");
 
-
   //TODO:// refactor ... too slow
   for (let pixel of allPixels) {
     for (let i = 0; i < objToPaint.length; i++) {
@@ -434,4 +281,3 @@ function startPaintingSelectedArtwork(nameOfArt) {
     }
   }
 }
-
