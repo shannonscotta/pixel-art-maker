@@ -287,7 +287,8 @@ function listItemsfromLocalStorage() {
       key !== "getItem" &&
       key !== "key" &&
       key !== "removeItem" &&
-      key !== "setItem"
+      key !== "setItem" &&
+      key !== "savedList"
     ) {
       addSavedArtToList(key);
     }
