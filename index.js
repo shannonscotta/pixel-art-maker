@@ -10,6 +10,13 @@ let pencilSelected = false;
 let eraserSelected = false;
 let resetSelected = false;
 
+
+// store all saved artwork here
+let savedDataObj = {};
+
+// used to save artwork
+let nameOfArt;
+
 // we will need to access the pixel outside of the for loop
 let pixel;
 
@@ -21,6 +28,7 @@ for (let i = 0; i < NUMBER_OF_PIXELS; i++) {
   pixelPaint();
 
   canvas.appendChild(pixel);
+  
 }
 
 let paletteContainer = document.querySelector(".color-palette-container");
@@ -117,19 +125,13 @@ function pixelDraw() {
      
        //TODO:// include eraser in local storage
       //  //set to data obj and append to local storage
-      //  dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
-      //  window.localStorage.setItem('artwork', JSON.stringify(dataObj));
+       dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
+       window.localStorage.setItem('artwork', JSON.stringify(dataObj));
     }
 
   });
 }
 
-// maybe delete
-let artwork = JSON.parse(localStorage.getItem('artwork'));
-
-if (artwork){
-  console.log(artwork)
-}
 
 
 function getSelectedMenuOption() {
@@ -142,25 +144,40 @@ function getSelectedMenuOption() {
       eraserSelected = false;
 
       if (e.target.id === "paint-option") {
-        return (paintSelected = true);
+        return paintSelected = true;
+
       } else if (e.target.id === "pencil-option") {
-        return (pencilSelected = true);
+        return pencilSelected = true;
+
       } else if (e.target.id === "eraser-option") {
         currentColorDisplay.style.backgroundColor = `#FFFFFF`;
-        return (eraserSelected = true);
-      } else if (e.target.id === "reset-option") {
-        let resetSelected = true;
+        return eraserSelected = true;
 
-        if (resetSelected) {
-          location.reload(true);
+      } else if (e.target.id === "reset-option") {
+          fillCanvas("");
+          // localStorage.clear();
+      } else if (e.target.id === "save-option"){
+
+        nameOfArt = prompt("What would you like to name your artwork?");
+
+        if (nameOfArt != null) {
+
+          console.log(`The name of the saved artwork is ${nameOfArt}`);
+          //TODO:// check to make sure user dosent overwrite old saved art
+          savedDataObj[nameOfArt] = JSON.parse(localStorage.getItem('artwork'));
+          
+          addSavedArtToList(nameOfArt);
+          // console.log('');
+          // console.log('savedDataObj:', savedDataObj);
         }
-      }
+
+      } 
     });
   }
 }
 
 //TODO:// add real css reset.. dont reload
-console.log('before if check', resetSelected);
+// console.log('before if check', resetSelected);
 
 
 getSelectedMenuOption();
@@ -174,13 +191,14 @@ function pixelPaint() {
       //set to data obj and append to local storage
       dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
       window.localStorage.setItem("artwork", JSON.stringify(dataObj));
+
     } else if (isMouseDown && eraserSelected){
       e.target.style.backgroundColor = "";
       e.target.style.borderColor = "";
 
           //set to data obj and append to local storage
-          dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
-          window.localStorage.setItem("artwork", JSON.stringify(dataObj));
+          // dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
+          // window.localStorage.setItem("artwork", JSON.stringify(dataObj));
     }
   });
 }
@@ -191,13 +209,12 @@ function getPaletteColor() {
     //only color options can be selected.
     if (event.target.className === "color-option") {
       brushChoice = event.target.style.backgroundColor;
-    } 
-    
-     //set color display bar
-     if (!eraserSelected){
-      currentColorDisplay.style.backgroundColor = `${brushChoice}`; 
-     }
-  
+    }
+
+    //set color display bar
+    if (!eraserSelected) {
+      currentColorDisplay.style.backgroundColor = `${brushChoice}`;
+    }
   });
 }
 
@@ -222,8 +239,6 @@ function toggleHamburger(x) {
 }
 
 
-//TODO:// bug work around below, needs a real fix though
-
 //remove first index from creating css style in css...
 let allColors = document.getElementsByClassName("color-option");
 paletteContainer.removeChild(allColors[0]);
@@ -242,15 +257,62 @@ if (typeof(Storage) !== "undefined"){
 
 //TODO: retrieve from local storage 
     
-  // retrieve from local storage
-    // let users = JSON.parse(localStorage.getItem('users'));
-    // console.log('users*******', users);
+  // // retrieve from local storage
+  //   let priorData = JSON.parse(localStorage.getItem('artwork'));
+
+  //   console.log('users*******', priorData);
   
 //TODO: hamburger menu with options [reset, eraser, paint, pencil]
 
 
-
-//TODO: clear pixels .. reset
 //TODO: start with mario drawing
 
 //TODO: add eraser / paint size via cursor square size?
+
+
+
+
+
+// name lastsavedlocalstorage
+let artwork = JSON.parse(localStorage.getItem('artwork'));
+
+function pixelPersist(artwork) {
+    for (const key in artwork) {
+      if (artwork[key] !== ""){
+        // console.log('key is:', key)
+        let oldPixel = document.getElementById(key);
+        oldPixel.style.backgroundColor = `${artwork[key]}`;
+        oldPixel.style.borderColor = `${artwork[key]}`
+      }
+  }
+}
+
+pixelPersist(artwork);
+
+
+// create a fillCanvas function that "fills the background"
+function fillCanvas(color) {
+  let allPixels = document.querySelectorAll(".pixel");
+
+  for (let pixel of allPixels) {
+    pixel.style.backgroundColor = `${color}`;
+    pixel.style.borderColor = `${color}`;
+  }
+}
+
+
+function addSavedArtToList(nameOfArt) {
+  let savedList = document.getElementsByTagName('ul')[0];
+  let savedItem = document.createElement("li");
+  
+  savedItem.textContent = nameOfArt;
+  
+  savedList.appendChild(savedItem);
+  
+  console.log("savedList", savedList)
+  // add this data load to onclick
+}
+
+
+
+console.log(savedDataObj);

@@ -186,3 +186,33 @@ transform: scale(1.2);
 .reset-style, .reset-style * {
   all:revert;
 }
+
+.saved-art-container {
+width:auto;
+height:auto;
+position: fixed;
+top: .1rem;
+right:1rem;
+max-width: 12vw;
+text-overflow: ellipsis;
+}
+
+.saved-art-container > ul {
+  list-style-type: none;
+}
+
+li {
+  margin: 2px;
+  color: black;
+  font-family: Verdana, Tahoma, sans-serif;
+  /* font-weight: 450; */
+  font-size: small;
+  text-align: left;
+  line-height: 2rem;
+}
+li:hover {
+  opacity: 80%;
+  transform: scale(1.2);
+  cursor: pointer;
+  opacity: 80%;
+}
