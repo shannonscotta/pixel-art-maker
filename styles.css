@@ -117,11 +117,12 @@ header {
   background-color: white;
   width: 2.5rem;
   height: 2.5rem;
-  cursor: pointer;
+
 }
 
 .burger:hover {
   transform: scale(1.2);
+  cursor: pointer;
 }
 
 
@@ -144,7 +145,7 @@ opacity: 80%;
 }
 
 /* Rotate first bar */
-.open .bar1 {
+.open .bar1{
   margin: 1px;
   transform: translate(0, 11px) rotate(-45deg);
 }
@@ -180,6 +181,8 @@ opacity: 80%;
 
 .open .menu-item:hover{
 transform: scale(1.2);
+cursor: pointer;
+color:black;
 }
 
 

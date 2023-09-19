@@ -8,7 +8,7 @@ let NUMBER_OF_PIXELS = 2046;
 let paintSelected = false;
 let pencilSelected = false;
 let eraserSelected = false;
-let resetSelected = false;
+let clearSelected = false;
 
 
 // store all saved artwork here
@@ -153,7 +153,7 @@ function getSelectedMenuOption() {
         currentColorDisplay.style.backgroundColor = `#FFFFFF`;
         return eraserSelected = true;
 
-      } else if (e.target.id === "reset-option") {
+      } else if (e.target.id === "clear-option") {
           fillCanvas("");
           // localStorage.clear();
       } else if (e.target.id === "save-option"){
