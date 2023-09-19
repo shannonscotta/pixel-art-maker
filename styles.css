@@ -185,11 +185,6 @@ cursor: pointer;
 color:black;
 }
 
-
-.reset-style, .reset-style * {
-  all:revert;
-}
-
 .saved-art-container {
 width:auto;
 height:auto;

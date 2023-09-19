@@ -17,6 +17,9 @@ let savedDataObj = {};
 // used to save artwork
 let nameOfArt;
 
+//
+let tempData;
+
 // we will need to access the pixel outside of the for loop
 let pixel;
 
@@ -24,8 +27,12 @@ for (let i = 0; i < NUMBER_OF_PIXELS; i++) {
   pixel = document.createElement("p");
   pixel.classList.add("pixel");
   pixel.id = `pixel-${i}`;
-  pixelDraw();
-  pixelPaint();
+
+
+    pixelDraw();
+    pixelPaint();
+  
+
 
   canvas.appendChild(pixel);
   
@@ -114,7 +121,7 @@ function pixelDraw() {
     
       //set to data obj and append to local storage
       dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
-      window.localStorage.setItem('artwork', JSON.stringify(dataObj));
+      window.localStorage.setItem(`artwork`, JSON.stringify(dataObj));
     }
 
   
@@ -165,10 +172,9 @@ function getSelectedMenuOption() {
           console.log(`The name of the saved artwork is ${nameOfArt}`);
           //TODO:// check to make sure user dosent overwrite old saved art
           savedDataObj[nameOfArt] = JSON.parse(localStorage.getItem('artwork'));
-          
+          // console.log('inside of getselectedmenu',savedDataObj[nameOfArt])
           addSavedArtToList(nameOfArt);
-          // console.log('');
-          // console.log('savedDataObj:', savedDataObj);
+          
         }
 
       } 
@@ -190,7 +196,7 @@ function pixelPaint() {
 
       //set to data obj and append to local storage
       dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
-      window.localStorage.setItem("artwork", JSON.stringify(dataObj));
+      window.localStorage.setItem(`artwork`, JSON.stringify(dataObj));
 
     } else if (isMouseDown && eraserSelected){
       e.target.style.backgroundColor = "";
@@ -305,14 +311,83 @@ function addSavedArtToList(nameOfArt) {
   let savedList = document.getElementsByTagName('ul')[0];
   let savedItem = document.createElement("li");
   
-  savedItem.textContent = nameOfArt;
+  savedItem.textContent = `${nameOfArt}.art`;
+  // savedItem.onclick = () =>  getArtworkFromSavedData(nameOfArt);
+  savedItem.onclick = () =>  getArtworkFromLocalStorage(nameOfArt);
   
   savedList.appendChild(savedItem);
   
-  console.log("savedList", savedList)
+  // console.log("savedList", savedList)
+  // console.log(nameOfArt, savedDataObj);
+
+
+
   // add this data load to onclick
 }
 
 
+// function getArtworkFromSavedData(art){
 
-console.log(savedDataObj);
+//   localStorage.clear();
+  
+//   console.log('inside of getArtworkFromSavedData, savedDataObj: ', savedDataObj)
+//   console.log(`inside of getArtworkFromSavedData, art is: `, art);
+//  let selectedArt = savedDataObj[art];
+// console.log('savedDataObj[art]', selectedArt)
+
+
+//   for (const key in selectedArt){
+//     console.log('key from for loop', key)
+//     let olderPixel = document.getElementById(key);
+//     olderPixel.style.backgroundColor = `${selectedArt[key]}`;
+//     olderPixel.style.borderColor = `${selectedArt[key]}`
+ 
+//   }
+
+// /*
+//     for (const key in artwork) {
+//       if (artwork[key] !== ""){
+//         // console.log('key is:', key)
+//         let oldPixel = document.getElementById(key);
+//         oldPixel.style.backgroundColor = `${artwork[key]}`;
+//         oldPixel.style.borderColor = `${artwork[key]}`
+//       }
+//   }
+//   */
+
+
+
+// }
+
+
+
+function getArtworkFromLocalStorage(art){
+  
+  console.log('inside of getArtworkFromSavedData, localStorage: ', localStorage)
+  // console.log(`inside of getArtworkFromSavedData, localStorage.art `, localStorage['artwork']);
+
+
+//  let selectedArt = savedDataObj[art];
+// console.log('savedDataObj[art]', selectedArt)
+
+
+  // for (const key in selectedArt){
+  //   console.log('key from for loop', key)
+  //   let olderPixel = document.getElementById(key);
+  //   olderPixel.style.backgroundColor = `${selectedArt[key]}`;
+  //   olderPixel.style.borderColor = `${selectedArt[key]}`
+ 
+  // }
+
+
+
+
+}
+
+
+// const localStorage = {artwork}
+
+// console.log(artwork)
+
+
+
