@@ -222,13 +222,6 @@ function fillCanvas(color) {
   }
 }
 
-function getArtworkFromLocalStorage(art) {
-  console.log(
-    "inside of getArtworkFromSavedData, localStorage: ",
-    localStorage
-  );
-}
-
 function pixelSnapShot(nameOfArt) {
   let allPixels = document.getElementsByClassName("pixel");
   console.log(
@@ -253,7 +246,10 @@ function addSavedArtToList(nameOfArt) {
   let savedItem = document.createElement("li");
 
   savedItem.textContent = `${nameOfArt}.art`;
+
   savedList.appendChild(savedItem);
+  window.localStorage.setItem(`savedList`, savedList);
+
   savedItem.onclick = () => startPaintingSelectedArtwork(nameOfArt);
 }
 
@@ -265,7 +261,7 @@ function startPaintingSelectedArtwork(nameOfArt) {
   fillCanvas("");
   let allPixels = document.querySelectorAll(".pixel");
 
-  //TODO:// refactor ... too slow
+  //TODO:// optimize ... too slow
   for (let pixel of allPixels) {
     for (let i = 0; i < objToPaint.length; i++) {
       let paintId = objToPaint[i];
@@ -281,3 +277,21 @@ function startPaintingSelectedArtwork(nameOfArt) {
     }
   }
 }
+
+//TODO:// refactor this, better if check or different loop
+function listItemsfromLocalStorage() {
+  for (let key in localStorage) {
+    if (
+      key !== "length" &&
+      key !== "clear" &&
+      key !== "getItem" &&
+      key !== "key" &&
+      key !== "removeItem" &&
+      key !== "setItem"
+    ) {
+      addSavedArtToList(key);
+    }
+  }
+}
+
+listItemsfromLocalStorage();
