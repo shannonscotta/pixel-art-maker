@@ -149,8 +149,6 @@ function pixelPaint() {
     ) {
       e.target.style.backgroundColor = `${brushChoice}`;
       e.target.style.borderColor = `${brushChoice}`;
-
-      dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
     } else if (isMouseDown && eraserSelected) {
       e.target.style.backgroundColor = "";
       e.target.style.borderColor = "";
