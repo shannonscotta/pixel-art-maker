@@ -206,11 +206,11 @@ paletteContainer.removeChild(allColors[0]);
 currentColorDisplayContainer.appendChild(currentColorText);
 currentColorDisplayContainer.appendChild(currentColorDisplay);
 
-if (typeof Storage !== "undefined") {
-  console.log("This browser has local storage!:", window.localStorage);
-} else {
-  console.log("This browser has no local storage");
-}
+// if (typeof Storage !== "undefined") {
+//   console.log("This browser has local storage!:", window.localStorage);
+// } else {
+//   console.log("This browser has no local storage");
+// }
 
 // create a fillCanvas function that "fills the background"
 function fillCanvas(color) {
@@ -224,9 +224,6 @@ function fillCanvas(color) {
 
 function pixelSnapShot(nameOfArt) {
   let allPixels = document.getElementsByClassName("pixel");
-  console.log(
-    "starting snapshot**********************************************"
-  );
 
   let snapshotArr = [];
 
@@ -253,43 +250,74 @@ function addSavedArtToList(nameOfArt) {
   savedItem.onclick = () => startPaintingSelectedArtwork(nameOfArt);
 }
 
-function startPaintingSelectedArtwork(nameOfArt) {
-  console.log("inside start painting func", nameOfArt);
+// console.log('i am pixel from line 253', pixel);
 
-  let objToPaint = JSON.parse(localStorage.getItem(`${nameOfArt}`));
-  console.log(objToPaint);
+
+
+function startPaintingSelectedArtwork(nameOfArt) {
+
+  let objToPaint = window.localStorage.getItem(`${nameOfArt}`);
+  let arrToPaint = JSON.parse(objToPaint)
+  console.log('*** PAINTING THIS OBJ ***', arrToPaint);
+
+  let myObj = {}
+
+  // for (let i = 0; i < arrToPaint.length; i++){
+  //   let key = arrToPaint[i]
+  //   let val = arrToPaint[i + 1];
+
+  //   myObj[key] = val;
+  //   i++;
+  // }
+
+  // console.log(myObj);
+
+
+  // merge key1 with key2 as prop
+  // for (const key in objToPaint){
+  //   console.log('key', key);
+  //   console.log('objToPaint[key]', objToPaint[key])
+  // } 
+
+
+  //start with blank canvas
   fillCanvas("");
+
   let allPixels = document.querySelectorAll(".pixel");
 
+ 
   //TODO:// optimize ... too slow
+
   for (let pixel of allPixels) {
-    for (let i = 0; i < objToPaint.length; i++) {
-      let paintId = objToPaint[i];
-      let paintColor = objToPaint[i + 1];
-      i++;
+    
+    let pixelIdMatch = arrToPaint.indexOf(pixel.id);
 
-      console.log(`${paintId} ${[paintColor]}`);
-
-      if (pixel.id == paintId) {
-        pixel.style.backgroundColor = paintColor;
-        pixel.style.borderColor = paintColor;
-      }
+    if (pixelIdMatch !== -1){
+      pixel.style.backgroundColor = arrToPaint[pixelIdMatch + 1]
+      pixel.style.borderColor = arrToPaint[pixelIdMatch + 1]
     }
+    // for (let i = 0; i < objToPaint.length; i++) {
+      // let paintId = objToPaint[i];
+      // let paintColor = objToPaint[i + 1];
+
+      // i++;
+      //TODO:// throw this back in
+      // console.log(`${paintId} ${[paintColor]}`);
+
+      // if (pixel.id) {
+      //   pixel.style.backgroundColor = paintColor;
+      //   pixel.style.borderColor = paintColor;
+      // }
+
+    // }
   }
 }
 
 //TODO:// refactor this, better if check or different loop
 function listItemsfromLocalStorage() {
   for (let key in localStorage) {
-    if (
-      key !== "length" &&
-      key !== "clear" &&
-      key !== "getItem" &&
-      key !== "key" &&
-      key !== "removeItem" &&
-      key !== "setItem" &&
-      key !== "savedList"
-    ) {
+    // some of the localStorage props are keys..
+    if (typeof localStorage[key] === 'string' && key !== 'savedList'){
       addSavedArtToList(key);
     }
   }
