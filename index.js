@@ -95,29 +95,16 @@ let isMouseUp = true;
 monitorClicks();
 getPaletteColor();
 
-let dataObj = {};
-
 function pixelDraw() {
   pixel.addEventListener("click", (e) => {
     if (!eraserSelected && e.target.tagName.toLowerCase() === "p") {
-      // window.localStorage.setItem('modifiedPixels', JSON.stringify())
       e.target.style.backgroundColor = `${brushChoice}`;
       e.target.style.borderColor = `${brushChoice}`;
-
-      //set to data obj and append to local storage
-      dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
-      // window.localStorage.setItem(`artwork`, JSON.stringify(dataObj));
     }
 
     if (eraserSelected && e.target.tagName.toLowerCase() === "p") {
-      // window.localStorage.setItem('modifiedPixels', JSON.stringify())
       e.target.style.backgroundColor = "";
       e.target.style.borderColor = "";
-
-      //TODO:// include eraser in local storage
-      //  //set to data obj and append to local storage
-      dataObj[e.target.id] = `${e.target.style.backgroundColor}`;
-      //  window.localStorage.setItem('artwork', JSON.stringify(dataObj));
     }
   });
 }
@@ -140,7 +127,6 @@ function getSelectedMenuOption() {
         return (eraserSelected = true);
       } else if (e.target.id === "clear-option") {
         fillCanvas("");
-        // localStorage.clear();
       } else if (e.target.id === "save-option") {
         nameOfArt = prompt("What would you like to name your artwork?");
 
@@ -206,11 +192,7 @@ paletteContainer.removeChild(allColors[0]);
 currentColorDisplayContainer.appendChild(currentColorText);
 currentColorDisplayContainer.appendChild(currentColorDisplay);
 
-// if (typeof Storage !== "undefined") {
-//   console.log("This browser has local storage!:", window.localStorage);
-// } else {
-//   console.log("This browser has no local storage");
-// }
+
 
 // create a fillCanvas function that "fills the background"
 function fillCanvas(color) {
@@ -229,7 +211,6 @@ function pixelSnapShot(nameOfArt) {
 
   for (let i = 0; i < allPixels.length; i++) {
     if (allPixels[i].style.backgroundColor != "") {
-      // localStorage.setItem()
       let pixelID = allPixels[i].id;
       let pixelColor = allPixels[i].style.backgroundColor;
       snapshotArr.push(pixelID, pixelColor);
@@ -242,7 +223,7 @@ function addSavedArtToList(nameOfArt) {
   let savedList = document.getElementsByTagName("ul")[0];
   let savedItem = document.createElement("li");
 
-  savedItem.textContent = `${nameOfArt}.art`;
+  savedItem.textContent = `${nameOfArt}`;
 
   savedList.appendChild(savedItem);
   window.localStorage.setItem(`savedList`, savedList);
@@ -250,66 +231,22 @@ function addSavedArtToList(nameOfArt) {
   savedItem.onclick = () => startPaintingSelectedArtwork(nameOfArt);
 }
 
-// console.log('i am pixel from line 253', pixel);
-
-
 
 function startPaintingSelectedArtwork(nameOfArt) {
-
   let objToPaint = window.localStorage.getItem(`${nameOfArt}`);
-  let arrToPaint = JSON.parse(objToPaint)
-  console.log('*** PAINTING THIS OBJ ***', arrToPaint);
+  let arrToPaint = JSON.parse(objToPaint);
 
-  let myObj = {}
-
-  // for (let i = 0; i < arrToPaint.length; i++){
-  //   let key = arrToPaint[i]
-  //   let val = arrToPaint[i + 1];
-
-  //   myObj[key] = val;
-  //   i++;
-  // }
-
-  // console.log(myObj);
-
-
-  // merge key1 with key2 as prop
-  // for (const key in objToPaint){
-  //   console.log('key', key);
-  //   console.log('objToPaint[key]', objToPaint[key])
-  // } 
-
-
-  //start with blank canvas
   fillCanvas("");
 
   let allPixels = document.querySelectorAll(".pixel");
 
- 
-  //TODO:// optimize ... too slow
-
   for (let pixel of allPixels) {
-    
     let pixelIdMatch = arrToPaint.indexOf(pixel.id);
 
-    if (pixelIdMatch !== -1){
-      pixel.style.backgroundColor = arrToPaint[pixelIdMatch + 1]
-      pixel.style.borderColor = arrToPaint[pixelIdMatch + 1]
+    if (pixelIdMatch !== -1) {
+      pixel.style.backgroundColor = arrToPaint[pixelIdMatch + 1];
+      pixel.style.borderColor = arrToPaint[pixelIdMatch + 1];
     }
-    // for (let i = 0; i < objToPaint.length; i++) {
-      // let paintId = objToPaint[i];
-      // let paintColor = objToPaint[i + 1];
-
-      // i++;
-      //TODO:// throw this back in
-      // console.log(`${paintId} ${[paintColor]}`);
-
-      // if (pixel.id) {
-      //   pixel.style.backgroundColor = paintColor;
-      //   pixel.style.borderColor = paintColor;
-      // }
-
-    // }
   }
 }
 
