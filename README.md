@@ -5,6 +5,7 @@ This is a Pixel Art Maker project that allows you to create pixel art drawings. 
 ## Design Inspiration
 
 The project's design was inspired by the following design:
+![Design Inspiration](https://github.com/shannonscotta/pixel-art-maker/assets/78231948/86eed71f-549a-436f-86a1-0bc65078d37b)
 
 ## How to Use
 
@@ -18,18 +19,8 @@ The project's design was inspired by the following design:
    - Clear: This option allows you to clear the entire canvas and start fresh.
    - Save: Save your pixel art creations using the local storage feature.
 
-## Features
+## Learning Points
 
 - Event listeners: The project utilizes event listeners to enable users to interact with the pixel grid, changing colors and creating art.
 - Local Storage: Pixel art creations can be saved and retrieved using local storage, allowing users to continue their work later.
 - Hamburger Menu: A responsive hamburger menu with CSS transitions enhances the user experience.
-
-## Learning Points
-
-Throughout the development of this project, I gained experience and knowledge in the following areas:
-
-- Implementing event listeners to capture user interactions.
-- Utilizing local storage to store and retrieve data within the browser.
-- Creating a responsive hamburger menu with CSS transitions for improved navigation.
-- 
-![Design Inspiration](https://github.com/shannonscotta/pixel-art-maker/assets/78231948/86eed71f-549a-436f-86a1-0bc65078d37b)
